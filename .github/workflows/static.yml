@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOLA BIỆN CHỨNG - Tạp san Triết học Sinh viên</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Patrick+Hand&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* === RESET & BASE STYLES === */
+        :root {
+            --fpt-orange: #F27125;
+            --neon-green: #39FF14;
+            --paper-white: #f4f4f4;
+            --ink-black: #1a1a1a;
+            --border-thick: 3px solid var(--ink-black);
+            --shadow-hard: 6px 6px 0px var(--ink-black);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #fff;
+            color: var(--ink-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; }
+        img { max-width: 100%; height: auto; }
+
+        /* === TIỆN ÍCH: THANH ĐỌC & MENU === */
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 5px; background: transparent; z-index: 1001; }
+        .progress-bar-scroll { height: 5px; background: var(--fpt-orange); width: 0%; }
+
+        .sticky-nav {
+            position: sticky; top: 0; background: #fff; z-index: 1000;
+            padding: 15px 0; border-bottom: var(--border-thick);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .nav-list { list-style: none; display: flex; justify-content: center; gap: 30px; }
+        .nav-list a {
+            color: var(--ink-black); text-decoration: none; font-family: 'Montserrat', sans-serif;
+            font-weight: 700; text-transform: uppercase; font-size: 0.9rem; transition: color 0.3s;
+        }
+        .nav-list a:hover { color: var(--fpt-orange); }
+
+        /* === HEADER / COVER === */
+        .magazine-cover {
+            background: var(--paper-white); padding: 80px 0; border-bottom: var(--border-thick);
+            text-align: center; background-image: radial-gradient(#ccc 1px, transparent 1px); background-size: 20px 20px;
+        }
+        .brand-name { font-size: 4rem; letter-spacing: -2px; margin-bottom: 10px; }
+        .brand-name .highlight { color: var(--fpt-orange); text-shadow: 3px 3px 0px #000; }
+        .tagline { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; transform: rotate(-2deg); display: inline-block; background: yellow; padding: 0 10px; }
+
+        .cover-content { margin-top: 50px; display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
+        .cover-image { width: 300px; height: 300px; background: #000; position: relative; border: var(--border-thick); box-shadow: var(--shadow-hard); }
+        .sticker-img {
+            position: absolute; width: 110px; height: 140px; object-fit: cover;
+            border: 3px solid #000; box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+            padding: 5px; background: white; z-index: 10; transition: transform 0.2s;
+        }
+        .sticker-img:hover { transform: scale(1.1); z-index: 20; cursor: pointer; }
+        .marx-img { top: -30px; left: -40px; transform: rotate(-10deg); }
+        .lenin-img { bottom: -30px; right: -40px; transform: rotate(10deg); }
+        .sticker.text-bubble { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            background: #fff; padding: 20px; border: 2px solid #000; 
+            font-weight: bold; border-radius: 50%; z-index: 5;
+            font-family: 'Patrick Hand', cursive; font-size: 1.2rem;
+        }
+        .headlines { text-align: left; max-width: 400px; display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+        .headline-item { background: white; border: 2px solid #000; padding: 15px; box-shadow: 4px 4px 0px #ccc; transition: transform 0.2s; }
+        .headline-item:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--fpt-orange); }
+        .badge { background: #000; color: white; padding: 2px 8px; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; display: inline-block;}
+
+        /* === GENERAL SECTIONS === */
+        section { padding: 80px 0; border-bottom: 1px dashed #000; }
+        .section-title { 
+            font-size: 2.5rem; text-align: center; margin-bottom: 40px; 
+            background: #000; color: white; display: inline-block; padding: 10px 20px; transform: rotate(-1deg); 
+        }
+        .container { text-align: center; } 
+
+        /* === EDITOR LETTER === */
+        .editors-letter { background: #fffae6; }
+        .paper-note {
+            background: white; border: 1px solid #ccc; padding: 40px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            font-family: 'Patrick Hand', cursive; font-size: 1.3rem;
+            max-width: 700px; margin: 0 auto; transform: rotate(1deg); text-align: left;
+        }
+        .signature { text-align: right; font-weight: bold; margin-top: 20px; color: var(--fpt-orange); }
+
+        /* === STYLE BÀI VIẾT & HÌNH ẢNH MINH HỌA MỚI === */
+        .article-block { margin-bottom: 50px; text-align: left; }
+        .article-block h3 { font-size: 1.5rem; border-left: 5px solid var(--fpt-orange); padding-left: 15px; margin-bottom: 15px; }
+        .article-content { display: flex; gap: 30px; align-items: flex-start; }
+        .article-text { flex: 2; }
+        .article-visual { flex: 1; }
+        .collage-img {
+            border: var(--border-thick); box-shadow: var(--shadow-hard); transform: rotate(2deg); transition: transform 0.3s;
+        }
+        .collage-img:hover { transform: rotate(0deg) scale(1.02); }
+        .btn-popup {
+            margin-top: 20px; background: #fff; border: 2px solid #000; padding: 10px 20px;
+            font-family: 'Montserrat', sans-serif; font-weight: 700; cursor: pointer;
+            box-shadow: 4px 4px 0px #ccc; transition: all 0.2s;
+        }
+        .btn-popup:hover { background: var(--fpt-orange); color: white; box-shadow: 4px 4px 0px #000; transform: translate(-2px, -2px);}
+
+        /* === CSS DRAWING: FISHBONE DIAGRAM (CÂN ĐỐI HƠN) === */
+        .fishbone-diagram {
+            position: relative; height: 180px; margin-top: 30px;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .spine { 
+            width: 100%; height: 4px; background: #000; position: absolute; top: 50%; transform: translateY(-50%); z-index: 1;
+        }
+        .head { 
+            position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+            width: 0; height: 0; border-top: 25px solid transparent; border-bottom: 25px solid transparent; border-left: 40px solid var(--fpt-orange); 
+            z-index: 2;
+        }
+        .head::after { content: 'RỚT MÔN'; position: absolute; left: -120px; top: 2px; font-weight: 900; white-space: nowrap;}
+        .bones-top, .bones-bottom {
+            display: flex; justify-content: space-around; width: 80%; position: relative; z-index: 3;
+        }
+        .bones-top { margin-bottom: 45px; }
+        .bones-bottom { margin-top: 45px; }
+        .bone { 
+            background: white; border: 2px solid #000; padding: 8px 15px; font-weight: bold; font-size: 0.9rem;
+            position: relative; box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+        }
+        /* Đường kẻ nối xương vào cột sống */
+        .bone.top::before {
+            content: ''; position: absolute; bottom: -30px; left: 50%; width: 2px; height: 30px; background: #000;
+        }
+        .bone.bottom::before {
+            content: ''; position: absolute; top: -30px; left: 50%; width: 2px; height: 30px; background: #000;
+        }
+        /* Điểm tròn giao nhau */
+        .bone::after {
+            content: ''; position: absolute; width: 10px; height: 10px; background: #000; border-radius: 50%; left: 50%; transform: translateX(-50%);
+        }
+        .bone.top::after { bottom: -35px; }
+        .bone.bottom::after { top: -35px; }
+
+        /* === CSS DRAWING: LOADING BAR (CÓ HIỆU ỨNG SỌC) === */
+        .loading-container { margin-top: 20px; border: 2px solid #000; padding: 20px; background: #fff; }
+        .progress-bar-bg { 
+            width: 100%; background: #eee; height: 30px; border: 2px solid #000; margin: 10px 0; 
+            overflow: hidden; position: relative;
+        }
+        .progress-bar { 
+            width: 99%; height: 100%; background: var(--fpt-orange); color: white; text-align: right; 
+            padding-right: 10px; font-weight: bold; line-height: 26px;
+            /* Hiệu ứng sọc chuyển động */
+            background-image: linear-gradient(45deg, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+            background-size: 40px 40px;
+            animation: striped-loading 2s linear infinite;
+        }
+        @keyframes striped-loading { from { background-position: 40px 0; } to { background-position: 0 0; } }
+        .error-msg { color: red; font-weight: bold; font-family: 'Courier New', monospace; font-size: 0.9rem; }
+
+        /* === LIFESTYLE & TIMELINE === */
+        .versus-container { display: flex; justify-content: space-between; align-items: center; margin: 30px 0; border: var(--border-thick); padding: 10px; background: #fff;}
+        .side { flex: 1; padding: 20px; font-weight: bold; text-align: center; border: 2px solid #000; }
+        .side-a { background: #fff; margin-right: -2px;}
+        .side-b { background: #eee; color: #555; margin-left: -2px;}
+        .vs-icon { background: var(--fpt-orange); color: white; padding: 15px; font-weight: 900; border-radius: 50%; border: 3px solid #000; z-index: 2; }
+
+        .timeline { position: relative; padding: 20px 0; }
+        .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: #ccc; transform: translateX(-50%); }
+        .timeline .step {
+            background: white; border: 2px solid #000; padding: 15px; margin: 20px auto; width: 45%;
+            box-shadow: 4px 4px 0px #ccc; text-align: left; position: relative; z-index: 2;
+        }
+        .timeline .step:nth-child(odd) { margin-left: 0; margin-right: auto; }
+        .timeline .step:nth-child(even) { margin-left: auto; margin-right: 0; }
+
+        /* === FUN ZONE, ICONS & QUIZ === */
+        .fun-zone { background: var(--fpt-orange); }
+        .dictionary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 50px; }
+        .card { background: white; padding: 20px; border: var(--border-thick); box-shadow: var(--shadow-hard); text-align: left;}
+        /* Thêm icon nhỏ cho tiêu đề từ điển */
+        .card h4::before { content: '📖 '; } 
+        .card h4 { color: var(--fpt-orange); font-weight: 900; margin-bottom: 10px; border-bottom: 2px solid #000; display: inline-block;}
+
+        .quiz-container { background: #fff; border: var(--border-thick); padding: 2rem; box-shadow: 10px 10px 0px #000; max-width: 800px; margin: 0 auto; text-align: left; }
+        .quiz-header h3 { background: #000; color: white; padding: 5px 15px; display: inline-block; }
+        .quiz-screen { display: none; animation: fadeIn 0.5s ease; }
+        .quiz-screen.active { display: block; }
+        .options-grid { display: grid; gap: 15px; margin-top: 20px; }
+        .option-btn { background: #f0f0f0; border: 2px solid #000; padding: 15px; text-align: left; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { background: var(--fpt-orange); color: white; transform: translateX(5px); box-shadow: 4px 4px 0px #000; }
+        .option-btn.correct { background: var(--neon-green) !important; color: #000 !important; }
+        .option-btn.wrong { background: #ff4d4d !important; color: white !important; text-decoration: line-through; }
+        .btn-primary { background: #000; color: #fff; padding: 15px 30px; border: none; font-family: 'Montserrat', sans-serif; font-weight: 700; cursor: pointer; margin-top: 20px; }
+        .btn-primary:hover { background: var(--fpt-orange); transform: scale(1.05); }
+
+        /* === FOOTER & BACK TO TOP === */
+        footer { background: #000; color: white; padding: 40px 0; text-align: center; }
+        footer ul { list-style: none; padding: 0; }
+        footer a { color: var(--neon-green); text-decoration: none; }
+        #backToTop { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; background: #fff; color: #000; border: 3px solid #000; padding: 10px 15px; font-weight: bold; cursor: pointer; box-shadow: 4px 4px 0px #000; }
+        #backToTop:hover { background: var(--fpt-orange); color: white; }
+
+        /* === STYLES CHO POP-UP (MODAL) MỚI === */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
+        .modal-content {
+            background: #fff; padding: 30px; max-width: 600px; width: 100%;
+            border: var(--border-thick); box-shadow: var(--shadow-hard);
+            position: relative; text-align: left;
+        }
+        .close-modal {
+            position: absolute; top: 10px; right: 15px; font-size: 2rem; font-weight: bold; cursor: pointer; color: var(--fpt-orange);
+        }
+        .modal-content h3 { color: var(--fpt-orange); border-bottom: 2px solid #000; display: inline-block; margin-bottom: 20px;}
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .brand-name { font-size: 2rem; }
+            .nav-list { gap: 10px; font-size: 0.8rem; }
+            .article-content { flex-direction: column; } /* Stack ảnh và chữ trên mobile */
+            .collage-img { width: 100%; transform: rotate(0); margin-top: 20px;}
+            .versus-container { flex-direction: column; }
+            .side { width: 100%; margin: 5px 0; }
+            /* Mobile Fishbone fix */
+            .fishbone-diagram { height: auto; }
+            .spine, .head { display: none; }
+            .bones-top, .bones-bottom { flex-direction: column; width: 100%; margin: 0; }
+            .bone { margin: 10px auto; width: 80%; text-align: center; }
+            .bone::before, .bone::after { display: none; } /* Ẩn các đường nối trên mobile */
+            
+            .timeline .step { width: 90%; margin: 10px auto !important; }
+            .timeline::before { left: 10px; }
+            .marx-img { width: 90px; height: 110px; left: -20px; }
+            .lenin-img { width: 90px; height: 110px; right: -20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container"><div class="progress-bar-scroll" id="myBar"></div></div>
+    <nav class="sticky-nav">
+        <ul class="nav-list">
+            <li><a href="#cover">BÌA</a></li>
+            <li><a href="#intro">LỜI TÒA SOẠN</a></li>
+            <li><a href="#academic">HỌC TẬP</a></li>
+            <li><a href="#lifestyle">ĐỜI SỐNG</a></li>
+            <li><a href="#quiz">QUIZ</a></li>
+        </ul>
+    </nav>
+
+    <header class="magazine-cover" id="cover">
+        <div class="container">
+            <h1 class="brand-name">HOLA <span class="highlight">BIỆN CHỨNG</span></h1>
+            <p class="tagline">"Nhìn đời bằng con mắt thứ 3... của Mác"</p>
+            <div class="cover-content">
+                <div class="cover-image">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.Y7XZerA1ZzuK6J4-BEA-NwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Karl Marx" class="sticker-img marx-img">
+                    <img src="https://tapchicongsan.org.vn/documents/20182/100454834/LENIN3.jpg/0d5eca96-3fed-44f1-a282-e9d937b248e6?t=1619604064344" alt="Lenin" class="sticker-img lenin-img">
+                    <div class="sticker text-bubble">Debug cuộc đời!</div>
+                </div>
+                <div class="headlines">
+                    <div class="headline-item"><span class="badge">TIÊU ĐIỂM</span><h3>Debug cuộc đời: Tại sao Bug cũng là một bước phát triển?</h3></div>
+                    <div class="headline-item"><span class="badge">GÓC HỌC TẬP</span><h3>Bí kíp qua môn Tiếng Anh: Khi 'Lượng' đổi thì 'Chất' mới thi qua.</h3></div>
+                    <div class="headline-item"><span class="badge">HOT TREND</span><h3>Chuyện tình F-Garden: Mâu thuẫn biện chứng hay là chia tay?</h3></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="editors-letter" id="intro">
+        <div class="container">
+            <div class="paper-note">
+                <h2>📩 Lời chào từ vũ trụ triết học</h2>
+                <p>Chào các đồng chí! Triết học không chỉ nằm trong giáo trình dày cộp. Nó nằm ngay ở bát phở Canteen, ở những đêm chạy deadline sấp mặt. Tạp san này giúp bạn dùng Triết để "hack" game đại học. Đừng cúng chuối, hãy cúng... kiến thức!</p>
+                <p class="signature">- Asu -</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="academic-zone" id="academic">
+        <div class="container">
+            <h2 class="section-title">GÓC HỌC TẬP</h2>
+
+            <article class="article-block">
+                <h3>Đừng đổ tại xui, Rớt môn là tất yếu!</h3>
+                <p class="sub-text" style="color: #666; font-style: italic;">(Chuyên đề: Phạm trù Nguyên nhân & Kết quả)</p>
+                <div class="article-content">
+                    <div class="article-text">
+                        <p>Mọi kết quả đều có nguyên nhân. Không có chuyện 'đen thôi đỏ quên đi'. Muốn đổi kết quả (Pass), phải tác động vào nguyên nhân chủ quan!</p>
+                        <button class="btn-popup" data-target="modal-cause">🔍 Phân tích sâu: Tại sao Mác nói đúng?</button>
+                    </div>
+                    <div class="article-visual">
+                        <img src="https://img.freepik.com/premium-vector/exhausted-student-feeling-unmotivated-while-sitting-desk_1125744-4892.jpg?w=996" alt="Stress sinh viên" class="collage-img">
+                    </div>
+                </div>
+                
+                <div class="fishbone-diagram">
+                    <div class="bones-top">
+                        <div class="bone top">Ngủ quên</div>
+                        <div class="bone top">Mạng Lag</div>
+                    </div>
+                    <div class="spine"></div>
+                    <div class="head"></div>
+                    <div class="bones-bottom">
+                        <div class="bone bottom">Lười học</div>
+                        <div class="bone bottom">Chép phao</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-block">
+                <h3>Học Code/Tiếng Anh: Cú nhảy vọt từ Level 1 lên Level 6</h3>
+                <p class="sub-text" style="color: #666; font-style: italic;">(Chuyên đề: Quy luật Lượng - Chất)</p>
+                <p>Chưa giỏi không phải do dốt, mà do chưa tích đủ Lượng để phá vỡ giới hạn cũ. Hãy cày cuốc đến "Điểm Nút"!</p>
+                <div class="loading-container">
+                    <div class="loading-label">Đang nạp kiến thức (Tích Lượng)...</div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar">99%</div>
+                    </div>
+                    <p class="error-msg">⚠️ Cảnh báo: Đang ở "Điểm Nút". Cần thi qua môn để thực hiện "Bước Nhảy"!</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="lifestyle-zone" id="lifestyle">
+        <div class="container">
+            <h2 class="section-title">ĐỜI SỐNG HOLA</h2>
+
+            <article class="article-block">
+                <h3>Drama Teamwork: Sự thống nhất các mặt đối lập</h3>
+                <div class="article-content">
+                    <div class="article-text">
+                         <div class="versus-container">
+                            <div class="side side-a">Gánh Team (Leader)</div>
+                            <div class="vs-icon">VS</div>
+                            <div class="side side-b">Free Rider (Ăn bám)</div>
+                        </div>
+                        <p class="caption">Đừng sợ drama, hãy biến "đấu tranh" thành động lực để hoàn thiện bài Assignment. Team im lìm là team "chết".</p>
+                         <button class="btn-popup" data-target="modal-teamwork">💡 Bí kíp: Biến thù thành bạn</button>
+                    </div>
+                     <div class="article-visual">
+                        <img src="https://www.tbsnews.net/sites/default/files/styles/big_2/public/images/2023/05/10/office_politics.jpg" alt="Teamwork drama" class="collage-img" style="transform: rotate(-2deg);">
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-block">
+                <h3>F-Camp & Hành trình lột xác: Phủ định của phủ định</h3>
+                <p>Sự phát triển đi theo đường xoáy ốc. Bạn của năm 4 vẫn là bạn, nhưng ở một trình độ cao hơn.</p>
+                <div class="timeline">
+                    <div class="step">🐣 Năm 1: Camper ngây ngô</div>
+                    <div class="step">📚 Năm 2: Áp lực chuyên ngành (Phủ định năm 1)</div>
+                    <div class="step">🎓 Năm 4: Trưởng thành (Phủ định của phủ định)</div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="fun-zone" id="quiz">
+        <div class="container">
+            <h2 class="section-title">GÓC GIẢI TRÍ</h2>
+
+            <div class="dictionary-grid">
+                <div class="card">
+                    <h4>DEADLINE</h4>
+                    <p>Là tính tất yếu mà sinh viên phải nhận thức được để đạt được tự do (nộp bài xong mới thấy tự do).</p>
+                </div>
+                <div class="card">
+                    <h4>GỬI XE</h4>
+                    <p>Một hiện tượng hỗn loạn phản ánh bản chất dân số đông đúc của sinh viên FPT tại Hòa Lạc.</p>
+                </div>
+                <div class="card">
+                    <h4>NGƯỜI YÊU CŨ</h4>
+                    <p>Một dạng vật chất đã vận động sang trạng thái khác, không nên tìm cách khôi phục ý thức về nó.</p>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quiz-app">
+                <div class="quiz-header">
+                    <h3>🎓 TRẮC NGHIỆM: BẠN LÀ NHÀ TRIẾT HỌC CẤP ĐỘ NÀO?</h3>
+                    <p>Thử thách 10 câu hỏi "sống còn" từ Chương 1 đến Chương 3</p>
+                </div>
+                <div id="start-screen" class="quiz-screen active">
+                    <p>Luật chơi: Trả lời đúng để tích lũy "Lượng", đủ điểm sẽ nhảy vọt về "Chất".</p>
+                    <button class="btn-primary" onclick="startQuiz()">BẮT ĐẦU TEST NHÂN PHẨM</button>
+                </div>
+                <div id="question-screen" class="quiz-screen hidden">
+                    <div class="progress-info"><span id="question-count">Câu 1/10</span></div>
+                    <h4 id="question-text" class="question-text">Loading...</h4>
+                    <div class="options-grid" id="options-container"></div>
+                </div>
+                <div id="result-screen" class="quiz-screen hidden">
+                    <h2>KẾT QUẢ</h2>
+                    <p class="score-display">Bạn trả lời đúng: <span id="score">0</span>/10</p>
+                    <p id="result-comment" class="result-comment">Nhận xét...</p>
+                    <button class="btn-primary" onclick="restartQuiz()">CÀY LẠI (TÍCH LŨY LƯỢNG)</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h4>Tài liệu tham khảo</h4>
+            <ul>
+                <li>Giáo trình Triết học Mác - Lênin</li>
+                <li><a href="#">Thuốc đau đầu Panadol Extra (Tài trợ tinh thần)</a></li>
+            </ul>
+            <p class="credit">Code by: Gemini AI & Lê Huyền Trang © 2026</p>
+        </div>
+    </footer>
+
+    <button onclick="topFunction()" id="backToTop" title="Lên đầu trang">⬆ LÊN ĐỈNH</button>
+
+    <div class="modal-overlay" id="modal-cause">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Phân tích sâu: Nguyên nhân & Kết quả</h3>
+            <p>Theo Mác, nguyên nhân là cái sinh ra kết quả. Tuy nhiên, cần phân biệt:</p>
+            <ul>
+                <li><b>Nguyên nhân khách quan:</b> Mạng lag, đề thi khó, trời mưa... (Cái này mình ít kiểm soát được).</li>
+                <li><b>Nguyên nhân chủ quan:</b> Lười học, ngủ quên, không ôn bài kỹ... (Cái này do mình quyết định).</li>
+            </ul>
+            <p><b>Kết luận của Mác:</b> Nguyên nhân chủ quan giữ vai trò quyết định. Đừng đổ lỗi cho mạng lag nữa, hãy xem lại cách học của mình!</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-teamwork">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Bí kíp Teamwork: Vận dụng quy luật mâu thuẫn</h3>
+            <p>Một team luôn tồn tại các mặt đối lập (Người chăm vs Kẻ lười). Sự "đấu tranh" (tranh luận, thúc giục) giữa các mặt này chính là động lực để bài Assignment hoàn thiện hơn.</p>
+            <p><b>Lời khuyên:</b></p>
+            <ul>
+                <li>Đừng né tránh xung đột, hãy tranh luận văn minh.</li>
+                <li>Thống nhất mục tiêu chung (Qua môn) để giữ team không tan rã.</li>
+                <li>Nếu "Free rider" quá chây ì, hãy sử dụng biện pháp "Phủ định" (Kick khỏi nhóm) để đảm bảo sự phát triển của tập thể!</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+    // --- CHỨC NĂNG POP-UP (MODAL) ---
+    const modalTriggers = document.querySelectorAll('.btn-popup');
+    const closeButtons = document.querySelectorAll('.close-modal');
+    const overlays = document.querySelectorAll('.modal-overlay');
+
+    modalTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const targetId = trigger.getAttribute('data-target');
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.closest('.modal-overlay').classList.remove('active');
+        });
+    });
+
+    overlays.forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+            }
+        });
+    });
+
+    // --- CHỨC NĂNG ĐỌC & NAV (GIỮ NGUYÊN) ---
+    window.onscroll = function() { myScrollFunction(); scrollFunction(); };
+    function myScrollFunction() {
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        document.getElementById("myBar").style.width = scrolled + "%";
+    }
+    function scrollFunction() {
+        var mybutton = document.getElementById("backToTop");
+        if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) { mybutton.style.display = "block"; } else { mybutton.style.display = "none"; }
+    }
+    function topFunction() { document.body.scrollTop = 0; document.documentElement.scrollTop = 0; }
+
+    // --- QUIZ LOGIC (GIỮ NGUYÊN) ---
+    const quizData = [
+        { question: "1. Vấn đề cơ bản của triết học là mối quan hệ giữa Tư duy và Tồn tại. Trong bối cảnh chạy Deadline, 'Tồn tại' là gì?", options: ["A. Là ý chí quyết tâm của bạn.", "B. Là cái Deadline lù lù trên CMS (Thực tại khách quan).", "C. Là lời hứa 'mai em nộp' với giảng viên.", "D. Là giấc mơ được qua môn."], correct: 1 },
+        { question: "2. Theo quan điểm Duy vật biện chứng, cái gì có trước?", options: ["A. Code có trước, Bug có sau (Vật chất có trước).", "B. Ý tưởng (Idea) có trước, Code có sau.", "C. Cả hai có cùng lúc.", "D. Do thần linh (Mentor) quyết định."], correct: 0 },
+        { question: "3. Trường phái nào cho rằng: 'Rớt môn là do số trời, mình không thay đổi được'?", options: ["A. Chủ nghĩa Duy vật biện chứng.", "B. Chủ nghĩa Duy tâm chủ quan.", "C. Thuyết Định mệnh (Duy tâm khách quan).", "D. Chủ nghĩa Vô thần."], correct: 2 },
+        { question: "4. Vận động là phương thức tồn tại của vật chất. Ví dụ nào sau đây thể hiện 'Vận động xã hội'?", options: ["A. Xe bus số 74 chạy từ Mỹ Đình lên Hòa Lạc.", "B. Dòng điện chạy trong CPU máy tính.", "C. Phong trào sinh viên FPT khởi nghiệp.", "D. Cây hoa sữa lớn lên trong khuôn viên."], correct: 2 },
+        { question: "5. Ý thức có nguồn gốc tự nhiên và nguồn gốc xã hội. Yếu tố nào thuộc nguồn gốc xã hội?", options: ["A. Bộ óc người.", "B. Lao động và Ngôn ngữ (Code, tiếng Anh).", "C. Thế giới khách quan.", "D. Phản ánh tâm lý."], correct: 1 },
+        { question: "6. 'Thực tiễn là tiêu chuẩn của chân lý'. Câu này áp dụng vào việc học Code nghĩa là gì?", options: ["A. Code đẹp là chân lý.", "B. Code ngắn là chân lý.", "C. Code chạy được (Run) không báo lỗi mới là chân lý.", "D. Code giống hệt thầy giáo là chân lý."], correct: 2 },
+        { question: "7. Mối liên hệ phổ biến: Tại sao 'Mạng Lag' ở ký túc xá lại ảnh hưởng đến 'Điểm số' của bạn?", options: ["A. Vì vạn vật đều có mối liên hệ biện chứng với nhau.", "B. Vì nhà mạng ghét bạn.", "C. Đó là sự ngẫu nhiên thôi.", "D. Không có liên hệ gì cả."], correct: 0 },
+        { question: "8. Quy luật Lượng - Chất: Muốn trở thành Senior Dev (Chất mới), bạn cần làm gì?", options: ["A. Ngồi thiền chờ thời.", "B. Tích lũy đủ số dòng code và kiến thức (Lượng) đến điểm nút.", "C. Hack hệ thống để đổi chức danh.", "D. Nhảy việc liên tục."], correct: 1 },
+        { question: "9. Quy luật Mâu thuẫn: Động lực phát triển của một Project nhóm là gì?", options: ["A. Sự đồng lòng nhất trí 100% (không ai nói gì).", "B. Sự đấu tranh giữa các ý kiến trái chiều để tìm ra giải pháp tối ưu.", "C. Sự im lặng của Leader.", "D. Loại bỏ hết các thành viên phản biện."], correct: 1 },
+        { question: "10. Quy luật Phủ định của phủ định: K18 (Năm 4) khác gì với K21 (Năm 1)?", options: ["A. Già hơn nhưng trình độ y hệt.", "B. Quay lại điểm xuất phát ban đầu, không thay đổi.", "C. Lặp lại hình dáng cũ nhưng ở trình độ cao hơn (Kế thừa & Phát triển).", "D. Bị phủ định sạch trơn, quên hết ký ức năm 1."], correct: 2 }
+    ];
+    let currentQuestionIndex = 0; let score = 0;
+    const startScreen = document.getElementById('start-screen'); const questionScreen = document.getElementById('question-screen'); const resultScreen = document.getElementById('result-screen'); const optionsContainer = document.getElementById('options-container');
+    function startQuiz() { startScreen.classList.remove('active'); startScreen.classList.add('hidden'); questionScreen.classList.remove('hidden'); questionScreen.classList.add('active'); currentQuestionIndex = 0; score = 0; loadQuestion(); }
+    function loadQuestion() { const currentData = quizData[currentQuestionIndex]; document.getElementById('question-count').innerText = `Câu ${currentQuestionIndex + 1}/${quizData.length}`; document.getElementById('question-text').innerText = currentData.question; optionsContainer.innerHTML = ''; currentData.options.forEach((option, index) => { const button = document.createElement('button'); button.innerText = option; button.classList.add('option-btn'); button.onclick = () => checkAnswer(index, button); optionsContainer.appendChild(button); }); }
+    function checkAnswer(selectedIndex, btnElement) { const currentData = quizData[currentQuestionIndex]; const allButtons = document.querySelectorAll('.option-btn'); allButtons.forEach(btn => btn.disabled = true); if (selectedIndex === currentData.correct) { btnElement.classList.add('correct'); score++; } else { btnElement.classList.add('wrong'); allButtons[currentData.correct].classList.add('correct'); } setTimeout(() => { currentQuestionIndex++; if (currentQuestionIndex < quizData.length) { loadQuestion(); } else { showResult(); } }, 1500); }
+    function showResult() { questionScreen.classList.remove('active'); questionScreen.classList.add('hidden'); resultScreen.classList.remove('hidden'); resultScreen.classList.add('active'); document.getElementById('score').innerText = score; let comment = ""; if (score <= 4) { comment = "🥲 Bạn đang theo chủ nghĩa 'Bất khả tri'. Cần tích thêm Lượng gấp!"; } else if (score <= 8) { comment = "🤔 Tạm ổn! Bạn đã nắm được 'Cái Riêng' nhưng chưa thấy 'Cái Chung'."; } else { comment = "😎 Đỉnh cao! Tư duy biện chứng của bạn sắc bén như Mác vậy!"; } document.getElementById('result-comment').innerText = comment; }
+    function restartQuiz() { resultScreen.classList.remove('active'); resultScreen.classList.add('hidden'); startQuiz(); }
+    </script>
+</body>
+</html>
+
+
